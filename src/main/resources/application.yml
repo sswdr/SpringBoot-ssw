@@ -1,6 +1,48 @@
 server:
   port: 8888
+  mvc:
+    pathmatch:
+      # 配置策略：果开发者使用的是Knife4j 2.x版本，并且Spring Boot版本高于2.4,那么需要在Spring Boot的yml文件中做如下配置
+      matching-strategy: ant-path-matcher
 
 spring:
   application:
-    name: SpringBoot-ssw
+    name: application-demo
+
+# Knife4j增强模式
+knife4j:
+  # 使用Knife4j提供的增强，knife4j.enable=true必须开启。自2.0.6版本后,只需要在配置文件中配置knife4j.enable=true即可不在使用注解（@EnableKnife4j）
+  enable: true
+  documents: # 自定义文档集合，该属性是数组
+    - group: 2.X版本                  # 所属分组
+      name: 接口签名                  # 类似于接口中的tag,对于自定义文档的分组
+      locations: classpath:sign/*   # markdown文件路径,可以是一个文件夹
+  setting:
+    language: zh-CN
+    enableSwaggerModels: true
+    enableDocumentManage: true
+    swaggerModelName: 实体类列表
+    enableVersion: false
+    enableReloadCacheParameter: false
+    enableAfterScript: true
+    enableFilterMultipartApiMethodType: POST
+    enableFilterMultipartApis: false
+    enableRequestCache: true
+    enableHost: false
+    enableHostText: localhost:8080
+    enableHomeCustom: true # 是否开启自定义主页内容
+    homeCustomLocation: classpath:markdown/home.md # 主页内容Markdown文件路径
+    enableSearch: false
+    enableFooter: false
+    enableFooterCustom: true
+    footerCustomContent: Apache License 2.0 | Copyright  2019-[xxx有限公司](https://gitee.com/xiaoym/knife4j)
+    enableDynamicParameter: false
+    enableDebug: true
+    enableOpenApi: false
+    enableGroup: true
+  cors: false
+  production: false
+  basic:
+    enable: false
+    username: admin
+    password: 123456

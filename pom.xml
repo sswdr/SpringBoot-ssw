@@ -66,6 +66,15 @@
             <version>2.9.1</version>
         </dependency>
 
+        <!--引入Knife4j的官方start包,Swagger2基于Springfox2.10.5项目-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <!--使用Swagger2-->
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <!--此版本号可不指定,spring-boot-starter-parent2.3.4默认knife4j2.0.9-->
+            <version>2.0.9</version>
+        </dependency>
+
 
     </dependencies>
 </project>
