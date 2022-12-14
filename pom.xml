@@ -75,6 +75,12 @@
             <version>2.0.9</version>
         </dependency>
 
+        <!--freemarker springboot starter-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+
 
     </dependencies>
 </project>
