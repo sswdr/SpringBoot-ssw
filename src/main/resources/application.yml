@@ -8,6 +8,15 @@ server:
 spring:
   application:
     name: application-demo
+  datasource:
+    url: jdbc:mysql://ubuntu-20.04.wsl:3306/mybatisplus_db?&useSSL=false&serverTimezone=UTC
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 # Knife4j增强模式
 knife4j:
