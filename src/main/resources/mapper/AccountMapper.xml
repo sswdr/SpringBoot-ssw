@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssw.mapper.AccountMapper">
+
+    <select id="CKGetList" resultType="com.ssw.po.Account">
+        select
+            a.*
+        from
+            clickhouse_db.account a
+            join (
+                select
+                    user_id ,
+                    ck_version
+                from
+                    clickhouse_db.account
+                group by
+                    user_id ,
+                    ck_version
+                having
+                    sum(ck_sign)>0
+            ) b
+        on
+            a.ck_version = b.ck_version and a.user_id = b.user_id
+    </select>
+
+    <select id="CKGetById" resultType="com.ssw.po.Account">
+        select
+            a.*
+        from
+            clickhouse_db.account a
+            join (
+                select
+                    user_id ,
+                    ck_version
+                from
+                    clickhouse_db.account
+                group by
+                    user_id ,
+                    ck_version
+                having
+                    sum(ck_sign)>0
+            ) b
+        on
+            a.ck_version = b.ck_version and a.user_id = b.user_id
+        where
+            user_id = #{userId}
+        limit 1
+    </select>
+
+    <select id="CKGetAccount" resultType="com.ssw.po.Account">
+        select
+            a.*
+        from
+            clickhouse_db.account a
+            join (
+                select
+                    user_id ,
+                    ck_version
+                from
+                    clickhouse_db.account
+                group by
+                    user_id ,
+                    ck_version
+                having
+                    sum(ck_sign)>0
+            ) b
+        on
+            a.ck_version = b.ck_version and a.user_id = b.user_id
+        where 1=1
+        <if test="account.userId != null and account.userId != '' ">
+            and user_id = #{account.userId}
+        </if>
+        <if test="account.userData != null and account.userData != '' ">
+            and user_data = #{account.userData}
+        </if>
+        <if test="account.ckSign != null and account.ckSign != '' ">
+            and ck_sign = #{account.ckSign}
+        </if>
+        <if test="account.ckVersion != null and account.ckVersion != '' ">
+            and ck_version = #{account.ckVersion}
+        </if>
+    </select>
+
+    <delete id="CKDeleteAccount">
+        insert into clickhouse_db.account
+        select
+            user_id ,
+            user_data ,
+            ck_sign*-1 as ck_sign ,
+            ck_version
+        from
+            clickhouse_db.account a
+            join (
+                select
+                user_id ,
+                ck_version
+            from
+                clickhouse_db.account
+            group by
+                user_id ,
+                ck_version
+            having
+                sum(ck_sign)>0
+            ) b
+        on
+            a.ck_version = b.ck_version and a.user_id = b.user_id
+        where 1=1
+        <if test="account.userId != null and account.userId != '' ">
+            and user_id = #{account.userId}
+        </if>
+    </delete>
+
+
+</mapper>

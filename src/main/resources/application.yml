@@ -8,6 +8,20 @@ server:
 spring:
   application:
     name: application-demo
+  datasource:
+    driver-class-name: ru.yandex.clickhouse.ClickHouseDriver
+    url: jdbc:clickhouse://ubuntu-20.04.wsl:8123/clickhouse_db
+    username: default
+    password:
+
+mybatis-plus:
+  # 指定扫描mapper.xml位置
+  mapper-locations: classpath*:mapper/*.xml
+  configuration:
+    # log输出sql执行日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 开启驼峰命名规则
+    map-underscore-to-camel-case: true
 
 # Knife4j增强模式
 knife4j:
