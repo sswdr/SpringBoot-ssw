@@ -9,10 +9,23 @@ spring:
   application:
     name: application-demo
   datasource:
-    driver-class-name: ru.yandex.clickhouse.ClickHouseDriver
-    url: jdbc:clickhouse://ubuntu-20.04.wsl:8123/clickhouse_db
-    username: default
-    password:
+    dynamic:
+      # 设置默认的数据源或者数据源组,默认值即为master
+      primary: clickhouse
+      #设置严格模式,默认false不启动. 启动后在未匹配到指定数据源时候会抛出异常,不启动则使用默认数据源
+      strict: false
+      datasource:
+        # 主数据源
+        mysql:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://ubuntu-20.04.wsl:3306/mybatisplus_db?&useSSL=false&serverTimezone=UTC
+          username: root
+          password: 123456
+        clickhouse:
+          driver-class-name: ru.yandex.clickhouse.ClickHouseDriver
+          url: jdbc:clickhouse://ubuntu-20.04.wsl:8123/clickhouse_db
+          username: default
+          password:
 
 mybatis-plus:
   # 指定扫描mapper.xml位置
