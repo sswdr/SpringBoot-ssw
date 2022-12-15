@@ -1,5 +1,3 @@
-# Knife4j-Demo
-## 学习 ClickHouse
 ### ck高性能crud测试demo
 ##### 参考：https://clickhouse.com/docs/en/engines/table-engines/mergetree-family/versionedcollapsingmergetree
 #### add()方法
